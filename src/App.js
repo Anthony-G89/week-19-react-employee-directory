@@ -19,22 +19,22 @@ class App extends React.Component {
         console.log({ heading });
 
         if (heading === 'Name') {
-            const sortedEmployees = this.state.employees.sort(function(a, b) {
+            const sortedEmployees = this.state.employees.sort(function (a, b) {
                 var nameA = a.name.first.toUpperCase(); // ignore upper and lowercase
                 var nameB = b.name.first.toUpperCase(); // ignore upper and lowercase
-                
+
                 if (nameA < nameB) {
-                  return -1;
+                    return -1;
                 }
 
                 if (nameA > nameB) {
-                  return 1;
+                    return 1;
                 }
-              
-                return 0;
-              });
 
-              this.setState({ employees: sortedEmployees });
+                return 0;
+            });
+
+            this.setState({ employees: sortedEmployees });
         }
     }
 
@@ -48,6 +48,14 @@ class App extends React.Component {
 
     render() {
         return (
+            <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                    <h1 className="display-4" className="text-center">Employee Directory</h1>
+                    <p className="lead" className="text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
+                </div>
+            
+
+
             <div className="container">
                 <table className="table table-striped">
                     <thead>
@@ -60,7 +68,7 @@ class App extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                      
+
                         {
                             this.state.employees.map(employee => {
                                 return (
@@ -79,6 +87,8 @@ class App extends React.Component {
                     </tbody>
                 </table>
             </div>
+            </div> 
+
         )
     }
 }
