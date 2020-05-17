@@ -2,7 +2,6 @@ import axios from "axios";
 
 export default {
     getRandomPerson: function () {
-        axios.get("https://randomuser.me/api/")
-
+        return axios.get("https://randomuser.me/api/?results=100&nat=us");
     }
 }
