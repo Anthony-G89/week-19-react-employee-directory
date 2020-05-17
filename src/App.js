@@ -37,23 +37,46 @@ class App extends React.Component {
             this.setState({ employees: sortedEmployees });
         }
     }
-
-    componentDidMount() {
-        API.getRandomPerson()
-            .then(res => {
-                console.log({ res });
-                this.setState({ employees: res.data.results })
-            })
+    handleSearch = () => {
+        const [employeeState, setemployeeState] = useState({
+            employees: "",
+          });
     }
 
-    render() {
-        return (
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container">
-                    <h1 className="display-4" className="text-center">Employee Directory</h1>
-                    <p className="lead" className="text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
+    
+
+    
+
+componentDidMount() {
+    API.getRandomPerson()
+        .then(res => {
+            console.log({ res });
+            this.setState({ employees: res.data.results })
+        })
+}
+
+
+render() {
+    return (
+        <div className="jumbotron jumbotron-fluid">
+            <div className="container" >
+                <h1 className="display-4" className="text-center">Employee Directory</h1>
+                <p className="lead" className="text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
+            </div>
+
+            <form className="searchEmployee">
+                <div className="form-group" className="text-center pb-3">
+                    <input
+                        //   value={}
+                        //   onChange={}
+                        name="term"
+                        list="term"
+                        type="text"
+                        placeholder="Search for an employee"
+                        id="searchBox"
+                    />
                 </div>
-            
+            </form>
 
 
             <div className="container">
@@ -87,11 +110,14 @@ class App extends React.Component {
                     </tbody>
                 </table>
             </div>
-            </div> 
+        </div>
 
-        )
-    }
+
+
+
+    )
 }
+
 
 export default App;
 
