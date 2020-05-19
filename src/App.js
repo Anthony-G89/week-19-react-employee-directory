@@ -52,7 +52,7 @@ class App extends React.Component {
         );
         console.log(filteredEmployees)
 
-            this.setState({employees: filteredEmployees});
+        this.setState({ employees: filteredEmployees });
     }
 
     componentDidMount() {
@@ -60,27 +60,29 @@ class App extends React.Component {
             .then(res => {
                 console.log({ res });
                 this.setState({
-                     employees: res.data.results,
-                     allEmployees: res.data.results
-                    })
+                    employees: res.data.results,
+                    allEmployees: res.data.results
+                })
             })
     }
 
     render() {
         return (
-            <div className="jumbotron jumbotron-fluid">
-                <div className="container">
-                    <h1 className="display-4 text-center">Employee Directory</h1>
-                    <p className="lead text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
+            <>
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container">
+                        <h1 className="display-4 text-center">Employee Directory</h1>
+                        <p className="lead text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
 
-                    <div className="row justify-content-center mb-4">
-                        <div className="col-sm-6">
-                            <input
-                                type="search"
-                                className="form-control"
-                                placeholder="Search"
-                                onChange={this.handleSearch}
-                            />
+                        <div className="row justify-content-center mb-4">
+                            <div className="col-sm-6">
+                                <input
+                                    type="search"
+                                    className="form-control"
+                                    placeholder="Search"
+                                    onChange={this.handleSearch}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,8 +120,8 @@ class App extends React.Component {
                         </tbody>
                     </table>
                 </div>
-            </div>
 
+            </>
         )
     }
 }
