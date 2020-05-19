@@ -4,7 +4,8 @@ import API from "./utils/API";
 class App extends React.Component {
     state = {
         search: "",
-        employees: []
+        employees: [],
+        allEmployees: []
     }
 
     headings = [
@@ -37,117 +38,91 @@ class App extends React.Component {
             this.setState({ employees: sortedEmployees });
         }
     }
-    handleSearch = () => {
-        const [employeeState, setemployeeState] = useState({
-            employees: "",
-          });
+
+    // TODO: Implement the logic in this method to filter the employees array.
+    handleSearch = (event) => {
+        console.log({ searchTerms: event.target.value });
+        console.log(this.state.employees);
+
+        const searchTerms = event.target.value.toLowerCase();
+
+        const filteredEmployees = this.state.allEmployees.filter(
+            user => `${user.name.first}${user.name.last}${user.email} `.toLowerCase().includes(searchTerms)
+
+        );
+        console.log(filteredEmployees)
+
+            this.setState({employees: filteredEmployees});
     }
 
-    
+    componentDidMount() {
+        API.getRandomPerson()
+            .then(res => {
+                console.log({ res });
+                this.setState({
+                     employees: res.data.results,
+                     allEmployees: res.data.results
+                    })
+            })
+    }
 
-    
+    render() {
+        return (
+            <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                    <h1 className="display-4 text-center">Employee Directory</h1>
+                    <p className="lead text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
 
-componentDidMount() {
-    API.getRandomPerson()
-        .then(res => {
-            console.log({ res });
-            this.setState({ employees: res.data.results })
-        })
-}
-
-
-render() {
-    return (
-        <div className="jumbotron jumbotron-fluid">
-            <div className="container" >
-                <h1 className="display-4" className="text-center">Employee Directory</h1>
-                <p className="lead" className="text-center">Click on the carrots to filter by heading or use the search box to narrow your results .</p>
-            </div>
-
-            <form className="searchEmployee">
-                <div className="form-group" className="text-center pb-3">
-                    <input
-                        //   value={}
-                        //   onChange={}
-                        name="term"
-                        list="term"
-                        type="text"
-                        placeholder="Search for an employee"
-                        id="searchBox"
-                    />
+                    <div className="row justify-content-center mb-4">
+                        <div className="col-sm-6">
+                            <input
+                                type="search"
+                                className="form-control"
+                                placeholder="Search"
+                                onChange={this.handleSearch}
+                            />
+                        </div>
+                    </div>
                 </div>
-            </form>
 
 
-            <div className="container">
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
+                <div className="container">
+                    <table className="table table-striped">
+                        <thead>
+                            <tr>
+                                {
+                                    this.headings.map(heading => (
+                                        <th scope="col" key={heading.name} onClick={() => this.handleSort(heading.name)}>{heading.name}</th>
+                                    ))
+                                },
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
                             {
-                                this.headings.map(heading => (
-                                    <th scope="col" key={heading.name} onClick={() => this.handleSort(heading.name)}>{heading.name}</th>
-                                ))
+                                this.state.employees.map(employee => {
+                                    return (
+                                        <tr key={employee.id.value}>
+                                            <td>
+                                                <img src={employee.picture.thumbnail} alt="employee" />
+                                            </td>
+                                            <td>{`${employee.name.first} ${employee.name.last}`}</td>
+                                            <td>{employee.email}</td>
+                                            <td>{employee.phone}</td>
+                                            <td>{employee.dob.date}</td>
+                                        </tr>
+                                    )
+                                })
                             }
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {
-                            this.state.employees.map(employee => {
-                                return (
-                                    <tr key={employee.id.value}>
-                                        <td>
-                                            <img src={employee.picture.thumbnail} alt="employee" />
-                                        </td>
-                                        <td>{`${employee.name.first} ${employee.name.last}`}</td>
-                                        <td>{employee.email}</td>
-                                        <td>{employee.phone}</td>
-                                        <td>{employee.dob.date}</td>
-                                    </tr>
-                                )
-                            })
-                        }
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
 
-
-
-
-    )
+        )
+    }
 }
-
 
 export default App;
 
-
-
-
-
-// import React from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
