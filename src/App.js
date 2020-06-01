@@ -1,5 +1,6 @@
 import React from "react";
 import API from "./utils/API";
+import "../src/App.css"
 
 class App extends React.Component {
     state = {
@@ -36,6 +37,24 @@ class App extends React.Component {
 
             this.setState({ employees: sortedEmployees });
         }
+
+        if( heading === 'Email') {
+            const sortedEmails = this.state.employees.sort(function (a, b) {
+                var nameA = a.email.toUpperCase(); // ignore upper and lowercase
+                var nameB = b.email.toUpperCase(); // ignore upper and lowercase
+
+                if (nameA < nameB) {
+                    return -1;
+                }
+
+                if (nameA > nameB) {
+                    return 1;
+                }
+
+                return 0;
+            });
+            this.setState({ employees: sortedEmails });
+        }
     }
 
     // TODO: Implement the logic in this method to filter the employees array.
@@ -57,7 +76,7 @@ class App extends React.Component {
     componentDidMount() {
         API.getRandomPerson()
             .then(res => {
-                // console.log({ res });
+                console.log({ res });
                 this.setState({
                     employees: res.data.results,
                     allEmployees: res.data.results
@@ -93,7 +112,7 @@ class App extends React.Component {
                             <tr>
                                 {
                                     this.headings.map(heading => (
-                                        <th scope="col" key={heading.name} onClick={() => this.handleSort(heading.name)}>{heading.name}</th>
+                                        <th scope="col" className="tabs" key={heading.name} onClick={() => this.handleSort(heading.name)}>{heading.name}</th>
                                     ))
                                 },
 
