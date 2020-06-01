@@ -17,8 +17,7 @@ class App extends React.Component {
     ];
 
     handleSort = (heading) => {
-        console.log({ heading });
-
+        
         if (heading === 'Name') {
             const sortedEmployees = this.state.employees.sort(function (a, b) {
                 var nameA = a.name.first.toUpperCase(); // ignore upper and lowercase
@@ -41,8 +40,8 @@ class App extends React.Component {
 
     // TODO: Implement the logic in this method to filter the employees array.
     handleSearch = (event) => {
-        console.log({ searchTerms: event.target.value });
-        console.log(this.state.employees);
+        // console.log({ searchTerms: event.target.value });
+        // console.log(this.state.employees);
 
         const searchTerms = event.target.value.toLowerCase();
 
@@ -50,21 +49,21 @@ class App extends React.Component {
             user => `${user.name.first}${user.name.last}${user.email} `.toLowerCase().includes(searchTerms)
 
         );
-        console.log(filteredEmployees)
+        // console.log(filteredEmployees)
 
         this.setState({ employees: filteredEmployees });
-    }
+    };
 
     componentDidMount() {
         API.getRandomPerson()
             .then(res => {
-                console.log({ res });
+                // console.log({ res });
                 this.setState({
                     employees: res.data.results,
                     allEmployees: res.data.results
                 })
             })
-    }
+    };
 
     render() {
         return (

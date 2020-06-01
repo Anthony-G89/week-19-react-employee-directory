@@ -2,11 +2,14 @@
 
 ## User Story
 ```
-As a user, I want to be able to view my entire employee directory at once so that I have quick access to their information.
+As a user, I want to be able to view my entire employee directory
+ at once so that I have quick access to their information.
 ```
 ## Description of App
 ```
-Application was made with React & user will be able to view their entire employee directory at once so they have quick access to employees information. Also, with the Search box, user can type employees name or email to shorten the list out. 
+Application was made with React & user will be able to view their entire employee directory
+ at once so they have quick access to employees information. Also, with the Search box, 
+ user can type employees name or email to shorten the list out. 
 ```
 ## Table of Contents
  * [Questions](#questions)
